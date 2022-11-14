@@ -1,7 +1,12 @@
 import { ReactComponent as Z1Logo } from '../../assets/images/z1-logo.svg'
+import { ReactComponent as HomeLogo } from '../../assets/images/icon-home.svg'
+import { ReactComponent as ExploreLogo } from '../../assets/images/icon-explore.svg'
 import './styles.scss'
 
 export default function Navbar() {
+  console.log('do not forget dot line of navbar')
+  const currentPath: string = window.location.pathname
+
   return (
     <div className='navbar'>
       <div className='navbar__header'>
@@ -14,12 +19,23 @@ export default function Navbar() {
       <ul>
         <li>
           <a href='./'>
-            <div>home</div>
+            <div
+              className={currentPath === '/' ? 'navbar__link--active navbar__link' : 'navbar__link'}
+            >
+              <HomeLogo className='navbar__icon' /> Home
+            </div>
           </a>
         </li>
         <li>
           <a href='./explore'>
-            <div>Explore</div>
+            <div
+              className={
+                currentPath === '/explore' ? 'navbar__link--active navbar__link' : 'navbar__link'
+              }
+            >
+              <ExploreLogo className='navbar__icon' />
+              Explore
+            </div>
           </a>
         </li>
       </ul>

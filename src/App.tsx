@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.scss'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './containers/Home'
 import Explore from './containers/Explore'
@@ -13,6 +13,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Navigate to='/' />} />
           <Route path='/explore' element={<Explore />} />
         </Routes>
       </div>

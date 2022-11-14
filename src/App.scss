@@ -21,6 +21,8 @@
   --music-genre: #e1f4fb;
   --fav-icon: #bf508b;
   --nav-background: #f5f6f7;
+  --nav-dotted-line: #c9cddb;
+  --nav-inactive: #707491;
 }
 
 body {
@@ -75,6 +77,8 @@ h3 {
 }
 
 ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
