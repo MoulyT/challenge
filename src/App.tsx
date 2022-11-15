@@ -6,6 +6,7 @@ import Explore from './containers/Explore'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from './styles/global'
 import light from './styles/themes/light'
+import { PATHS } from './global/constants/paths'
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
         <div className='wrapper'>
           <Navbar />
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/home' element={<Navigate to='/' />} />
-            <Route path='/explore' element={<Explore />} />
+            <Route path={PATHS.HOME} element={<Home />} />
+            <Route path='*' element={<Navigate to='/' />} />
+            <Route path={PATHS.EXPLORE} element={<Explore />} />
           </Routes>
         </div>
       </ThemeProvider>

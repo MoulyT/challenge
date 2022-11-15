@@ -1,4 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { ReactComponent as ExploreLogo } from '../../assets/images/icon-explore.svg'
+import { ReactComponent as HomeLogo } from '../../assets/images/icon-home.svg'
 
 export const NavbarDiv = styled.div`
   width: 15rem;
@@ -36,11 +38,34 @@ export const NavbarLink = styled.a`
   text-decoration: none;
 `
 
-export const NavbarDivLink = styled.div`
+export const NavbarDivLink = styled.div<{ $isActive?: boolean }>`
   padding: 12px;
   margin-bottom: 0.25rem;
 
   border-radius: 8px;
 
-  color: ${({ theme }) => theme.colors.navDottedLine};
+  color: ${({ theme }) => theme.colors.navInactive};
+
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      background-color: white;
+      color: ${({ theme }) => theme.colors.primary};
+    `}
+`
+
+// En estos iconos veo mucha repetición, seguro que se puede hacer que se le pasa el icono como prop. REVISAR
+
+export const StyledExploreLogo = styled(ExploreLogo)`
+  margin-bottom: -0.1875rem;
+  margin-right: 1rem;
+`
+export const StyledHomeLogo = styled(HomeLogo)`
+  margin-bottom: -0.1875rem;
+  margin-right: 1rem;
+`
+
+export const NavbarDivLinkActive = styled(NavbarDivLink)`
+  background-color: white;
+  color: ${({ theme }) => theme.colors.primary};
 `
