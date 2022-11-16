@@ -4,6 +4,8 @@ export const Form = styled.form`
   display: flex;
 
   position: relative;
+
+  margin-bottom: 2.5rem;
 `
 
 export const Input = styled.input`

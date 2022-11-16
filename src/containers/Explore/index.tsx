@@ -8,9 +8,5 @@ export default function Explore() {
       <SearchBar />
       <SubTittle>Featured songs</SubTittle>
     </Wrapper>
-
-    // <div className='explore_wrapper'>
-    //   <h1>Explore</h1>
-    // </div>
   )
 }
