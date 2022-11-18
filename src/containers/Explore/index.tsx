@@ -1,5 +1,6 @@
 import { Wrapper, Tittle, SubTittle } from './styles'
 import { SearchBar } from '../../components/SearchBar/index'
+import { CardSong } from '../../components/CardSong'
 
 export default function Explore() {
   return (
@@ -7,6 +8,7 @@ export default function Explore() {
       <Tittle>Explore</Tittle>
       <SearchBar />
       <SubTittle>Featured songs</SubTittle>
+      <CardSong />
     </Wrapper>
   )
 }
