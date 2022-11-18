@@ -1,7 +1,13 @@
 import styled, { css } from 'styled-components'
 
-export const CardSong = styled.div`
+export const Container = styled.div`
   display: flex;
+`
+
+export const Img = styled.img`
+  width: 8.75rem;
+  height: 8.75rem;
+  border-radius: 12px;
 `
 
 export const TextContainer = styled.div`
@@ -12,24 +18,24 @@ export const SongTittle = styled.h3`
   color: ${({ theme }) => theme.colors.primary};
 `
 
-const handleVariant = variant:string => {
-    switch (variant:string) {
-        case 'artist':
-            return "font-weight=500"
-            break;
-        case 'song-duration':
-            return "line-height=100%"
-            break;
-    
-        default:
-            break;
-    }
-}
-
-export const Text = styled.p<{ $variant: string }> `
+export const Text = styled.p<{ $variant?: string }>`
   font-size: 0.875rem;
   line-height: 143%;
-  ${({ $variant }) => handleVariant};
+  ${({ $variant }) => {
+    switch ($variant) {
+      case 'artist':
+        return css`
+          font-weight: 500;
+        `
+
+      case 'song-duration':
+        return css`
+          line-height: 100%;
+        `
+      default:
+        break
+    }
+  }};
 `
 
 export const ButtonContainer = styled.div`
