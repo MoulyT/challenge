@@ -3,7 +3,9 @@ import { ReactComponent as ExploreLogo } from '../../assets/images/icon-explore.
 import { ReactComponent as HomeLogo } from '../../assets/images/icon-home.svg'
 
 export const NavbarDiv = styled.div`
-  width: 15rem;
+  width: 16.666vw;
+  max-width: 30rem;
+  min-width: 15rem;
 
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.navBackground};

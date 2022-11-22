@@ -5,6 +5,7 @@ export const Container = styled.div`
   column-gap: 1.25rem;
   max-width: 1024px;
   width: 100%;
+  margin-bottom: 2rem;
 `
 
 export const Img = styled.img`
@@ -15,8 +16,11 @@ export const Img = styled.img`
 `
 
 export const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
   color: ${({ theme }) => theme.colors.secondary};
-  max-width: 37.6875rem;
+  max-width: 38.25rem;
 `
 
 export const SongTittle = styled.h3`
@@ -51,6 +55,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   column-gap: 0.75rem;
   align-items: center;
+  margin-top: auto;
 `
 
 export const PlayButton = styled.button`

@@ -14,11 +14,17 @@ import { ReactComponent as PlayIcon } from '../../assets/images/play-button.svg'
 import { Props } from './types'
 
 export const CardSong = ({ song }: Props) => {
-  const [isFav, setIsFav] = useState(false)
+  const cacheFav = localStorage.getItem('fav' + JSON.stringify(song.id))
+
+  const [isFav, setIsFav] = useState(
+    typeof cacheFav === 'undefined' || cacheFav === null ? false : true,
+  )
 
   function handleFav() {
-    setIsFav(!isFav)
-    console.log('isFav=', isFav)
+    isFav
+      ? (setIsFav(!isFav), localStorage.removeItem('fav' + JSON.stringify(song.id)))
+      : (setIsFav(!isFav),
+        localStorage.setItem('fav' + JSON.stringify(song.id), JSON.stringify(song.id)))
   }
 
   return (
