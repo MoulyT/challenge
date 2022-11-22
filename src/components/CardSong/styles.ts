@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components'
 export const Container = styled.div`
   display: flex;
   column-gap: 1.25rem;
+  max-width: 1024px;
+  width: 100%;
 `
 
 export const Img = styled.img`

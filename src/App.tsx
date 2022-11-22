@@ -8,23 +8,27 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from './styles/global'
 import light from './styles/themes/light'
 import { PATHS } from './global/constants/paths'
+import { ApolloProvider } from '@apollo/client'
+import { client } from './graphql/client'
 
 function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={light}>
-        <GlobalStyle />
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <ThemeProvider theme={light}>
+          <GlobalStyle />
 
-        <Wrapper>
-          <Navbar />
-          <Routes>
-            <Route path={PATHS.HOME} element={<Home />} />
-            <Route path='*' element={<Navigate to='/' />} />
-            <Route path={PATHS.EXPLORE} element={<Explore />} />
-          </Routes>
-        </Wrapper>
-      </ThemeProvider>
-    </BrowserRouter>
+          <Wrapper>
+            <Navbar />
+            <Routes>
+              <Route path={PATHS.HOME} element={<Home />} />
+              <Route path='*' element={<Navigate to='/' />} />
+              <Route path={PATHS.EXPLORE} element={<Explore />} />
+            </Routes>
+          </Wrapper>
+        </ThemeProvider>
+      </BrowserRouter>
+    </ApolloProvider>
   )
 }
 
