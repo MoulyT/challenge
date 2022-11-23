@@ -33,9 +33,12 @@ const SONGS_QUERY = gql`
 export default function Explore() {
   const { data, loading, error } = useQuery(SONGS_QUERY)
   const [filter, setFilter] = useState('')
+  console.log('filter=', filter)
 
   if (loading) return <div>Loading...</div>
   if (error) return <pre>{error.message}</pre>
+
+  
 
   return (
     <Wrapper>

@@ -19,3 +19,5 @@ export type Props = {
 export type CacheFav = number[]
 
 export type LocalStorage = number[]
+
+export type HandleGenre= (arg: string) => string

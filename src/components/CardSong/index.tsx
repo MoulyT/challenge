@@ -12,7 +12,7 @@ import { FavButton } from '../FavButton'
 import { useState } from 'react'
 import { ReactComponent as PlayIcon } from '../../assets/images/play-button.svg'
 
-import { CacheFav, Props } from './types'
+import { CacheFav, Props, SongTypes, HandleGenre } from './types'
 
 const handleCacheFav = () => {
   let cacheFav: CacheFav = []
@@ -21,6 +21,10 @@ const handleCacheFav = () => {
     : (cacheFav = JSON.parse(localStorage.getItem('favorite')))
 
   return cacheFav
+}
+
+const handleGenre: HandleGenre= (genre: SongTypes["genre"])=>{
+  genre.toLowerCase
 }
 
 export const CardSong = ({ song }: Props) => {
