@@ -11,20 +11,33 @@ import {
 import { FavButton } from '../FavButton'
 import { useState } from 'react'
 import { ReactComponent as PlayIcon } from '../../assets/images/play-button.svg'
-import { Props } from './types'
+
+import { CacheFav, Props } from './types'
+
+const handleCacheFav = () => {
+  let cacheFav: CacheFav = []
+  JSON.parse(localStorage.getItem('favorite')) === null
+    ? localStorage.setItem('favorite', JSON.stringify([]))
+    : (cacheFav = JSON.parse(localStorage.getItem('favorite')))
+
+  return cacheFav
+}
 
 export const CardSong = ({ song }: Props) => {
-  const cacheFav = localStorage.getItem('fav' + JSON.stringify(song.id))
-
-  const [isFav, setIsFav] = useState(
-    typeof cacheFav === 'undefined' || cacheFav === null ? false : true,
-  )
+  const cacheFav: CacheFav = handleCacheFav()
+  const favIndex = cacheFav.findIndex((e) => e === song.id)
+  const [isFav, setIsFav] = useState(favIndex >= 0 ? true : false)
 
   function handleFav() {
+    const cacheFav: CacheFav = handleCacheFav()
+    const favIndex = cacheFav.findIndex((e) => e === song.id)
     isFav
-      ? (setIsFav(!isFav), localStorage.removeItem('fav' + JSON.stringify(song.id)))
+      ? (setIsFav(!isFav),
+        cacheFav.splice(favIndex, 1),
+        localStorage.setItem('favorite', JSON.stringify(cacheFav)))
       : (setIsFav(!isFav),
-        localStorage.setItem('fav' + JSON.stringify(song.id), JSON.stringify(song.id)))
+        cacheFav.push(song.id),
+        localStorage.setItem('favorite', JSON.stringify(cacheFav)))
   }
 
   return (

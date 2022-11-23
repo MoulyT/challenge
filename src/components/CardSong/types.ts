@@ -15,3 +15,7 @@ export type SongTypes = {
 export type Props = {
   song: SongTypes
 }
+
+export type CacheFav = number[]
+
+export type LocalStorage = number[]
