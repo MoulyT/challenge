@@ -3242,6 +3242,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.debounce@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@types/lodash.debounce@npm:4.0.7"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: e873b2d77f89010876baba3437ef826b17221b98948e00b5590828334a481dea1c8f9d28543210e564adc53199584f42c3cb171f8b6c3614fefc0b4e0888679c
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.189
+  resolution: "@types/lodash@npm:4.14.189"
+  checksum: 096d1e0954794fb76bd6a0ea443067f02004b53e3c59ac6e3fed88817a1468fc2e6614abdf44341f5e0fdff5f9a3c94a934cc9ff7126e07efbcd94355a21fe45
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 3.0.1
   resolution: "@types/mime@npm:3.0.1"
@@ -4801,6 +4817,7 @@ __metadata:
     "@testing-library/react": ^13.0.0
     "@testing-library/user-event": ^13.2.1
     "@types/jest": ^27.0.1
+    "@types/lodash.debounce": ^4.0.7
     "@types/node": ^16.7.13
     "@types/react": ^18.0.0
     "@types/react-dom": ^18.0.0
@@ -4818,6 +4835,7 @@ __metadata:
     eslint-plugin-react: latest
     eslint-plugin-react-hooks: ^4.6.0
     graphql: ^16.6.0
+    lodash.debounce: ^4.0.8
     prettier: ^2.7.1
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -4827,6 +4845,7 @@ __metadata:
     styled-components: ^5.3.6
     styled-normalize: ^8.0.7
     typescript: ^4.4.2
+    use-debounce: ^8.0.4
     web-vitals: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -13343,6 +13362,15 @@ __metadata:
     querystringify: ^2.1.1
     requires-port: ^1.0.0
   checksum: fbdba6b1d83336aca2216bbdc38ba658d9cfb8fc7f665eb8b17852de638ff7d1a162c198a8e4ed66001ddbf6c9888d41e4798912c62b4fd777a31657989f7bdf
+  languageName: node
+  linkType: hard
+
+"use-debounce@npm:^8.0.4":
+  version: 8.0.4
+  resolution: "use-debounce@npm:8.0.4"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 0f8b9e571f68a4694033ec00690bf73d781ac890140ae9ed4b330f71f7adb3f7d7df5cdaa32923c4d03fdc9de8a11be0f84301175ae4f66208af52ad03c55504
   languageName: node
   linkType: hard
 

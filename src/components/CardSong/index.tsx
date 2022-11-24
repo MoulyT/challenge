@@ -11,27 +11,41 @@ import {
 import { FavButton } from '../FavButton'
 import { useState } from 'react'
 import { ReactComponent as PlayIcon } from '../../assets/images/play-button.svg'
-
 import { CacheFav, Props, SongTypes, HandleGenre } from './types'
 
+//handleCacheFav search in the LocalStorage if the user already has some
+// favorite songs. If she has, it return in the var cacheFav which are those songs
+// If not, it initializes an array in order to save future songs in LocalStorage
 const handleCacheFav = () => {
   let cacheFav: CacheFav = []
-  JSON.parse(localStorage.getItem('favorite')) === null
+
+  localStorage.getItem('favorite') === null
     ? localStorage.setItem('favorite', JSON.stringify([]))
-    : (cacheFav = JSON.parse(localStorage.getItem('favorite')))
+    : (cacheFav = JSON.parse(localStorage.getItem('favorite') as string))
 
   return cacheFav
 }
 
-const handleGenre: HandleGenre= (genre: SongTypes["genre"])=>{
-  genre.toLowerCase
+// handleGenre its a simple function that transforms ROCK_METAL=>rock metal
+const handleGenre: HandleGenre = (genre: SongTypes['genre']) => {
+  const genreArray = genre.split('')
+
+  for (let i = 0; i < genreArray.length; i++) {
+    genreArray[i] === '_' && genreArray.splice(i, 1, ' ')
+  }
+
+  const genreString = genreArray.join('')
+  const genreProcessed = genreString.toLowerCase()
+
+  return genreProcessed
 }
 
 export const CardSong = ({ song }: Props) => {
   const cacheFav: CacheFav = handleCacheFav()
   const favIndex = cacheFav.findIndex((e) => e === song.id)
-  const [isFav, setIsFav] = useState(favIndex >= 0 ? true : false)
+  const [isFav, setIsFav] = useState(favIndex >= 0 ? true : false) //The initial state correspond with the info saved in localStorage 'favorite'
 
+  // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
   function handleFav() {
     const cacheFav: CacheFav = handleCacheFav()
     const favIndex = cacheFav.findIndex((e) => e === song.id)
@@ -56,7 +70,7 @@ export const CardSong = ({ song }: Props) => {
             <PlayIcon />
           </PlayButton>
           <Text $variant='song-duration'>5 min</Text>
-          <Genre>{song.genre}</Genre>
+          <Genre>{handleGenre(song.genre)}</Genre>
         </ButtonContainer>
       </TextContainer>
       <FavButton handleFav={handleFav} isFav={isFav}></FavButton>

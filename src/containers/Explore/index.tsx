@@ -5,11 +5,12 @@ import { useQuery, gql } from '@apollo/client'
 import { SongTypes } from './types'
 import { useState } from 'react'
 
-// ¿Por qué no puedo invocar esta query dentro del componente Explore?
+import { useDebounce } from 'use-debounce'
+import { CardLoading } from '../../components/CardLoading'
 
 const SONGS_QUERY = gql`
-  {
-    songs {
+  query MyQuery($debouncedFilter: String) {
+    songs(search: $debouncedFilter, sort: { order: ASC }) {
       songs {
         audio {
           url
@@ -31,23 +32,29 @@ const SONGS_QUERY = gql`
 `
 
 export default function Explore() {
-  const { data, loading, error } = useQuery(SONGS_QUERY)
+  // SearchBar is an controlled form
   const [filter, setFilter] = useState('')
-  console.log('filter=', filter)
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <pre>{error.message}</pre>
+  // We don't want to call the API for each stroke, so we call the API
+  // using debouncedFilter instead of filter
+  const debouncedFilterObj = useDebounce(filter, 650)
+  const debouncedFilter = debouncedFilterObj[0]
+  const { data, loading, error } = useQuery(SONGS_QUERY, {
+    variables: { debouncedFilter },
+  })
 
-  
+  if (error) return <pre>{error.message}</pre> // Se puede mejorar el cómo se muestra el error
 
   return (
     <Wrapper>
       <Tittle>Explore</Tittle>
       <SearchBar filter={filter} handleChange={setFilter} />
       <SubTittle>Featured songs</SubTittle>
-      {data.songs.songs.map((song: SongTypes) => (
-        <CardSong song={song} key={song.id} />
-      ))}
+      {loading ? (
+        <CardLoading />
+      ) : (
+        data.songs.songs.map((song: SongTypes) => <CardSong song={song} key={song.id} />)
+      )}
     </Wrapper>
   )
 }
