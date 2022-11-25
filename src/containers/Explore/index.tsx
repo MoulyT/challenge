@@ -14,11 +14,12 @@ import { SONGS_QUERY } from '../../graphql/queries'
 
 import { useQuery } from '@apollo/client'
 import { useState } from 'react'
-import useDebounce from '../../hooks/useDebounce'
+import { useDebounce } from 'use-debounce'
 
 //import types
 // ===================
 import { SongTypes } from './types'
+import { type } from 'os'
 
 //########################################################
 
@@ -37,7 +38,8 @@ export default function Explore() {
     variables: { debouncedFilter, sort },
   })
   if (error) return <pre>{error.message}</pre> // Se puede mejorar el cómo se muestra el error
-
+  console.log(debouncedFilter)
+  typeof debouncedFilter
   return (
     <Wrapper>
       <Tittle>Explore</Tittle>
