@@ -14,12 +14,11 @@ import { SONGS_QUERY } from '../../graphql/queries'
 
 import { useQuery } from '@apollo/client'
 import { useState } from 'react'
-import { useDebounce } from 'use-debounce'
+import useDebounce from '../../hooks/useDebounce'
 
 //import types
 // ===================
 import { SongTypes } from './types'
-import { Reproductor } from '../../components/Reproductor'
 
 //########################################################
 
@@ -49,7 +48,6 @@ export default function Explore() {
       ) : (
         data.songs.songs.map((song: SongTypes) => <CardSong song={song} key={song.id} />)
       )}
-      <Reproductor></Reproductor>
     </Wrapper>
   )
 }
