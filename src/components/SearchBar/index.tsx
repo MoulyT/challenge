@@ -7,7 +7,7 @@ export const SearchBar = ({ filter, handleChange }: Filter) => {
     <Form>
       <Input
         type='text'
-        placeholder='Search by tittle tag...'
+        placeholder='Search by tittle, tag...'
         value={filter}
         onChange={(e) => handleChange(e.target.value)}
       />

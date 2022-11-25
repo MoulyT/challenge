@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/macro'
 import { ReactComponent as ExploreLogo } from '../../assets/images/icon-explore.svg'
 import { ReactComponent as HomeLogo } from '../../assets/images/icon-home.svg'
 

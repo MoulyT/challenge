@@ -8,6 +8,7 @@ const light = {
     navBackground: '#f5f6f7',
     navDottedLine: '#c9cddb',
     navInactive: '#707491',
+    grayScale50: '#f5f6f7',
   },
 }
 
