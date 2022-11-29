@@ -12,6 +12,10 @@ export type SongTypes = {
   name: string
 }
 
+export type IsFav = boolean
+
+export type SetIsFav = (arg: boolean) => void
+
 export type Props = {
   song: SongTypes
 }
@@ -20,4 +24,4 @@ export type CacheFav = number[]
 
 export type LocalStorage = number[]
 
-export type HandleGenre= (arg: string) => string
+export type HandleGenre = (arg: string) => string

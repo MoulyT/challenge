@@ -7,3 +7,5 @@ export const Button = styled.button`
   padding: 0;
   cursor: pointer;
 `
+
+export const HeartImg = styled.img``

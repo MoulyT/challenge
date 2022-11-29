@@ -19,7 +19,6 @@ import { useDebounce } from 'use-debounce'
 //import types
 // ===================
 import { SongTypes } from './types'
-import { type } from 'os'
 
 //########################################################
 
@@ -43,7 +42,7 @@ export default function Explore() {
   return (
     <Wrapper>
       <Tittle>Explore</Tittle>
-      <SearchBar filter={filter} handleChange={setFilter} />
+      <SearchBar input={filter} handleChange={setFilter} />
       <SortButton handleChange={setSort} />
       {loading ? (
         <CardLoading />

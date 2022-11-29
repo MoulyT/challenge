@@ -1,4 +1,6 @@
-import { ReactComponent as Z1Logo } from '../../assets/images/z1-logo.svg'
+import Z1Logo from '../../assets/images/z1-logo.svg'
+import IconHome from '../../assets/images/icon-home.png'
+import IconExplore from '../../assets/images/icon-explore.png'
 
 import {
   NavbarDiv,
@@ -8,18 +10,18 @@ import {
   NavbarList,
   NavbarLink,
   NavbarDivLink,
-  StyledExploreLogo,
-  StyledHomeLogo,
+  StyledLogo,
+  Logo,
 } from './styles'
 import { Separator } from '../Separator/index'
 import { PATHS } from '../../global/constants/paths'
 import { activeLink } from './logic'
 
-export default function Navbar() {
+export const Navbar = () => {
   return (
     <NavbarDiv>
       <NavbarHeader>
-        <Z1Logo />
+        <Logo src={Z1Logo} alt='Z1' />
         <div>
           <NavbarUserName>Z1 Digital Studio</NavbarUserName>
           <NavbarMail>mouly@sample.com</NavbarMail>
@@ -30,7 +32,7 @@ export default function Navbar() {
         <li>
           <NavbarLink href={PATHS.HOME}>
             <NavbarDivLink $isActive={activeLink(PATHS.HOME)}>
-              <StyledHomeLogo />
+              <StyledLogo src={IconHome} alt='Home' />
               Home
             </NavbarDivLink>
           </NavbarLink>
@@ -38,7 +40,7 @@ export default function Navbar() {
         <li>
           <NavbarLink href={PATHS.EXPLORE}>
             <NavbarDivLink $isActive={activeLink(PATHS.EXPLORE)}>
-              <StyledExploreLogo />
+              <StyledLogo src={IconExplore} alt='Explore' />
               Explore
             </NavbarDivLink>
           </NavbarLink>

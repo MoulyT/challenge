@@ -15,6 +15,7 @@ import { ReactComponent as PlayIcon } from '../../assets/images/play-button.svg'
 
 // import logic
 // ==================
+
 import { handleCacheFav, handleGenre } from './logic'
 
 //handleCacheFav search in the LocalStorage if the user already has some
@@ -32,18 +33,19 @@ import { CacheFav, Props } from './types'
 export const CardSong = ({ song }: Props) => {
   const cacheFav: CacheFav = handleCacheFav()
   const favIndex = cacheFav.findIndex((e) => e === song.id)
-  const [isFav, setIsFav] = useState(favIndex >= 0 ? true : false) //The initial state correspond with the info saved in localStorage 'favorite'
+  const [isFav, setIsFav] = useState(favIndex >= 0 ? false : true) //The initial state correspond with the info saved in localStorage 'favorite'
 
   // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
   function handleFav() {
     const cacheFav: CacheFav = handleCacheFav()
+
     const favIndex = cacheFav.findIndex((e) => e === song.id)
     isFav
       ? (setIsFav(!isFav),
-        cacheFav.splice(favIndex, 1),
+        cacheFav.push(song.id),
         localStorage.setItem('favorite', JSON.stringify(cacheFav)))
       : (setIsFav(!isFav),
-        cacheFav.push(song.id),
+        cacheFav.splice(favIndex, 1),
         localStorage.setItem('favorite', JSON.stringify(cacheFav)))
   }
 

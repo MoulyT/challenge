@@ -1,4 +1,4 @@
 export type Filter = {
-  filter: string
+  input: string
   handleChange: (arg: string) => void
 }

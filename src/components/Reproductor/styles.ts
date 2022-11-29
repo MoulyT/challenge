@@ -1,4 +1,5 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
+import { SongText } from './types'
 
 export const Container = styled.div`
   position: fixed;
@@ -13,10 +14,38 @@ export const Container = styled.div`
 
   border-radius: 22px;
 `
-export const LeftContainer = styled.div``
+export const LeftContainer = styled.div`
+  display: flex;
+`
 
-export const AlbumImg = styled.img``
+export const AlbumImg = styled.img`
+  width: 48px;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+`
+export const AlbumInfo = styled.div``
 
-export const CenterContainer = styled.div``
+export const Text = styled.p<{ $variant: SongText }>`
+  ${({ $variant }) => {
+    switch ($variant) {
+      case 'song-name':
+        return css`
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+        `
+
+      case 'artist':
+        return css`
+          font-size: 12px;
+          line-height: 12px;
+        `
+    }
+  }}
+`
+
+export const CenterContainer = styled.div`
+  display: flex;
+  column-gap: 21px;
+`
 
 export const RightContainer = styled.div``

@@ -12,7 +12,7 @@ import { client } from './graphql/client'
 import Home from './containers/Home'
 import Explore from './containers/Explore'
 
-import Navbar from './components/Navbar'
+import { Navbar } from './components/Navbar'
 import { Wrapper } from './components/Wrapper/styles'
 import { Reproductor } from './components/Reproductor'
 
