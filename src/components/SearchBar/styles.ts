@@ -17,11 +17,9 @@ export const Input = styled.input`
   border-radius: 12px;
   border: 1px solid ${({ theme }) => theme.colors.navDottedLine};
 `
-export const SearchButton = styled.button`
+export const SearchButton = styled.img`
   position: absolute;
 
-  top: 9px;
-
-  border: none;
-  background-color: transparent;
+  top: 15px;
+  left: 11px;
 `

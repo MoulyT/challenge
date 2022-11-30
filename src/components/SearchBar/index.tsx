@@ -1,5 +1,5 @@
 import { Input, SearchButton, Form } from './styles'
-import { ReactComponent as LogoButton } from '../../assets/images/icon-search.svg'
+import IconSearch from '../../assets/images/icon-search.png'
 import { Filter } from './types'
 
 export const SearchBar = ({ input, handleChange }: Filter) => {
@@ -12,9 +12,7 @@ export const SearchBar = ({ input, handleChange }: Filter) => {
         onChange={(e) => handleChange(e.target.value)}
       />
 
-      <SearchButton>
-        <LogoButton />
-      </SearchButton>
+      <SearchButton src={IconSearch} alt='Search bar' />
     </Form>
   )
 }

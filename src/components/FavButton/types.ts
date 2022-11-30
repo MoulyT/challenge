@@ -1,6 +1,8 @@
 export type FavTypes = {
-  handleFav: () => void
+  handleFav: (songId: number, isFav: boolean, setIsFav: SetIsFav) => void
   isFav: boolean
+  setIsFav: React.Dispatch<React.SetStateAction<boolean>>
+  songId: number
 }
 export type SongTypes = {
   audio: { id: number; url: string }

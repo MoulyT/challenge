@@ -1,8 +1,10 @@
 import { CacheFav, SongTypes, HandleGenre, IsFav, SetIsFav } from './types'
 
-//handleCacheFav search in the LocalStorage if the user already has some
-// favorite songs. If she has, it return in the var cacheFav which are those songs
-// If not, it initializes an array in order to save future songs in LocalStorage
+// There are 3 functions in this doc: handleCacheFav, handleFav, handleGenre
+
+// handleCacheFav:
+// search in the LocalStorage if the user already has some favorite songs. If she has, it return in the var cacheFav
+// which are those songs.If not, it initializes an array in order to save future songs in LocalStorage
 export const handleCacheFav = () => {
   let cacheFav: CacheFav = []
 
@@ -26,6 +28,7 @@ export function handleFav(songId: number, isFav: IsFav, setIsFav: SetIsFav) {
     : (setIsFav(!isFav),
       cacheFav.push(songId),
       localStorage.setItem('favorite', JSON.stringify(cacheFav)))
+  return isFav
 }
 
 // handleGenre its a simple function that transforms ROCK_METAL=>rock metal

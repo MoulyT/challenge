@@ -4,8 +4,14 @@ import { FavButton } from '.'
 export default {
   component: FavButton,
   title: 'Component/FavButton',
+  argTypes: { isFav: { control: 'boolean' } },
 } as Meta
 
-const Template: Story = () => <FavButton />
-
+const Template: Story = ({ isFav, ...rest }) => {
+  return <FavButton handleFav={() => console.log('hola')} isFav={isFav} {...rest} />
+}
 export const Default = Template.bind({})
+
+Default.args = {
+  isFav: false,
+}

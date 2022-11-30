@@ -64,6 +64,8 @@ export const PlayButton = styled.button`
   border: none;
   padding: 0;
 `
+
+export const PlayImg = styled.img``
 export const Genre = styled.span`
   padding: 4px 8px;
 

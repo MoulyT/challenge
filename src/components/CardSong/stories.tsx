@@ -8,19 +8,19 @@ export default {
 } as Meta
 
 const song = {
-  id: 565,
+  id: 2,
   image: '',
-  name: 'hola que tal',
+  name: 'Canción chuli',
   author: {
     name: 'Mouly',
-    id: 3,
-    description: 'bla blablabalab',
+    id: 2,
+    description: 'Autor de música chuli',
   },
-  description: 'bla blablabalab',
-  genre: 'ROCK',
+  description: 'canción súper chuli',
+  genre: 'CHULI-STEP',
   audio: {
-    id: 1,
-    url: '',
+    id: 2,
+    url: 'http://chuli.com',
   },
 }
 
