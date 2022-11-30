@@ -17,23 +17,28 @@ import PlayIcon from '../../assets/images/play-button.png'
 // import logic
 // ==================================
 
-import { handleCacheFav, handleFav, handleGenre } from './logic'
+import { useLogic } from './logic'
 //handleCacheFav search in the LocalStorage if the user already has some
 // favorite songs. If she has, it return in the var cacheFav which are those songs
 // If not, it initializes an array in order to save future songs in LocalStorage
 
 // handleGenre its a simple function that transforms ROCK_METAL=>rock metal
 
-import { useState } from 'react'
-
 // import types
 // ===================
-import { CacheFav, Props } from './types'
+import { Props } from './types'
+import { useEffect } from 'react'
+import { useReactiveVar } from '@apollo/client'
+import myReactiveFav from '../../graphql/variables/fav'
 
 export const CardSong = ({ song }: Props) => {
-  const cacheFav: CacheFav = handleCacheFav()
-  const favIndex = cacheFav.findIndex((e) => e === song.id)
-  const [isFav, setIsFav] = useState(favIndex >= 0 ? true : false) //The initial state correspond with the info saved in localStorage 'favorite'
+  const { handleFav, handleGenre, isFav, setIsFav, handleCacheFav } = useLogic({ song: song })
+  //The initial state correspond with the info saved in localStorage 'favorite'
+
+  useEffect(() => {
+    handleCacheFav()
+    console.log('hola')
+  }, [])
 
   return (
     <Container>
@@ -50,12 +55,7 @@ export const CardSong = ({ song }: Props) => {
           <Genre>{handleGenre(song.genre)}</Genre>
         </ButtonContainer>
       </TextContainer>
-      <FavButton
-        handleFav={handleFav}
-        isFav={isFav}
-        songId={song.id}
-        setIsFav={setIsFav}
-      ></FavButton>
+      <FavButton handleFav={handleFav} isFav={isFav >= 0} songId={song.id}></FavButton>
     </Container>
   )
 }

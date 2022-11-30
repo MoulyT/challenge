@@ -1,46 +1,77 @@
-import { CacheFav, SongTypes, HandleGenre, IsFav, SetIsFav } from './types'
+import { useState } from 'react'
+import { CacheFav, SongTypes, HandleGenre, IsFav, SetIsFav, Props } from './types'
+import { gql, makeVar, useQuery, useReactiveVar } from '@apollo/client'
+import myReactiveFav from '../../graphql/variables/fav'
 
 // There are 3 functions in this doc: handleCacheFav, handleFav, handleGenre
 
 // handleCacheFav:
 // search in the LocalStorage if the user already has some favorite songs. If she has, it return in the var cacheFav
 // which are those songs.If not, it initializes an array in order to save future songs in LocalStorage
-export const handleCacheFav = () => {
-  let cacheFav: CacheFav = []
 
-  localStorage.getItem('favorite') === null
-    ? localStorage.setItem('favorite', JSON.stringify([]))
-    : (cacheFav = JSON.parse(localStorage.getItem('favorite') as string))
+export const useLogic = ({ song }: Props) => {
+  const [isFav, setIsFav] = useState(-1)
+  const favList = useReactiveVar(myReactiveFav)
 
-  return cacheFav
-}
+  const handleCacheFav = () => {
+    let cacheFav: CacheFav = []
 
-// If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
-export function handleFav(songId: number, isFav: IsFav, setIsFav: SetIsFav) {
-  const cacheFav: CacheFav = handleCacheFav()
-  console.log(setIsFav)
+    localStorage.getItem('favorite') === null
+      ? localStorage.setItem('favorite', JSON.stringify([]))
+      : (cacheFav = JSON.parse(localStorage.getItem('favorite') as string))
 
-  const favIndex = cacheFav.findIndex((e) => e === songId)
-  isFav
-    ? (setIsFav(!isFav),
-      cacheFav.splice(favIndex, 1),
-      localStorage.setItem('favorite', JSON.stringify(cacheFav)))
-    : (setIsFav(!isFav),
-      cacheFav.push(songId),
-      localStorage.setItem('favorite', JSON.stringify(cacheFav)))
-  return isFav
-}
+    console.log(
+      cacheFav,
+      'handleCache: ',
+      cacheFav.findIndex((e) => e === song.id),
+    )
 
-// handleGenre its a simple function that transforms ROCK_METAL=>rock metal
-export const handleGenre: HandleGenre = (genre: SongTypes['genre']) => {
-  const genreArray = genre.split('')
+    const position = cacheFav.findIndex((e) => e === song.id)
 
-  for (let i = 0; i < genreArray.length; i++) {
-    genreArray[i] === '_' && genreArray.splice(i, 1, ' ')
+    if (position >= 0) {
+      setIsFav(position)
+    } else {
+      setIsFav(-1)
+    }
   }
 
-  const genreString = genreArray.join('')
-  const genreProcessed = genreString.toLowerCase()
+  // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
+  function handleFav(songId: number) {
+    if (isFav >= 0) {
+      const position = favList.findIndex((e) => e === songId)
+      myReactiveFav(favList.splice(position, 1))
 
-  return genreProcessed
+      //myReactiveFav(newArray)
+      localStorage.setItem('favorite', JSON.stringify(favList))
+      setIsFav(-1)
+    } else {
+      myReactiveFav([...favList, songId])
+      localStorage.setItem('favorite', JSON.stringify([...favList, songId]))
+      setIsFav(favList.length - 1)
+    }
+
+    return isFav
+  }
+
+  // handleGenre its a simple function that transforms ROCK_METAL=>rock metal
+  const handleGenre: HandleGenre = (genre: SongTypes['genre']) => {
+    const genreArray = genre.split('')
+
+    for (let i = 0; i < genreArray.length; i++) {
+      genreArray[i] === '_' && genreArray.splice(i, 1, ' ')
+    }
+
+    const genreString = genreArray.join('')
+    const genreProcessed = genreString.toLowerCase()
+
+    return genreProcessed
+  }
+
+  return {
+    handleFav,
+    handleGenre,
+    isFav,
+    setIsFav,
+    handleCacheFav,
+  }
 }

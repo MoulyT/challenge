@@ -37,7 +37,6 @@ export default function Explore() {
     variables: { debouncedFilter, sort },
   })
   if (error) return <pre>{error.message}</pre> // Se puede mejorar el cómo se muestra el error
-  console.log(debouncedFilter)
   typeof debouncedFilter
   return (
     <Wrapper>
