@@ -8,7 +8,7 @@ export default {
 } as Meta
 
 const Template: Story = ({ isFav, ...rest }) => {
-  return <FavButton handleFav={() => console.log('hola')} isFav={isFav} {...rest} />
+  return <FavButton songId={0} handleFav={() => console.log('hola')} isFav={isFav} {...rest} />
 }
 export const Default = Template.bind({})
 

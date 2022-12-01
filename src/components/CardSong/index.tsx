@@ -28,16 +28,13 @@ import { useLogic } from './logic'
 // ===================
 import { Props } from './types'
 import { useEffect } from 'react'
-import { useReactiveVar } from '@apollo/client'
-import myReactiveFav from '../../graphql/variables/fav'
 
 export const CardSong = ({ song }: Props) => {
-  const { handleFav, handleGenre, isFav, setIsFav, handleCacheFav } = useLogic({ song: song })
+  const { handleFav, handleGenre, isFav, handleCacheFav } = useLogic({ song: song })
   //The initial state correspond with the info saved in localStorage 'favorite'
 
   useEffect(() => {
     handleCacheFav()
-    console.log('hola')
   }, [])
 
   return (

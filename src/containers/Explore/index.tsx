@@ -38,6 +38,7 @@ export default function Explore() {
   })
   if (error) return <pre>{error.message}</pre> // Se puede mejorar el cómo se muestra el error
   typeof debouncedFilter
+
   return (
     <Wrapper>
       <Tittle>Explore</Tittle>

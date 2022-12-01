@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { CacheFav, SongTypes, HandleGenre, IsFav, SetIsFav, Props } from './types'
-import { gql, makeVar, useQuery, useReactiveVar } from '@apollo/client'
+import { CacheFav, SongTypes, HandleGenre, Props } from './types'
 import myReactiveFav from '../../graphql/variables/fav'
 
 // There are 3 functions in this doc: handleCacheFav, handleFav, handleGenre
@@ -11,7 +10,6 @@ import myReactiveFav from '../../graphql/variables/fav'
 
 export const useLogic = ({ song }: Props) => {
   const [isFav, setIsFav] = useState(-1)
-  const favList = useReactiveVar(myReactiveFav)
 
   const handleCacheFav = () => {
     let cacheFav: CacheFav = []
@@ -20,37 +18,31 @@ export const useLogic = ({ song }: Props) => {
       ? localStorage.setItem('favorite', JSON.stringify([]))
       : (cacheFav = JSON.parse(localStorage.getItem('favorite') as string))
 
-    console.log(
-      cacheFav,
-      'handleCache: ',
-      cacheFav.findIndex((e) => e === song.id),
-    )
-
     const position = cacheFav.findIndex((e) => e === song.id)
 
     if (position >= 0) {
       setIsFav(position)
-    } else {
-      setIsFav(-1)
     }
+    myReactiveFav(cacheFav)
   }
 
   // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
   function handleFav(songId: number) {
     if (isFav >= 0) {
-      const position = favList.findIndex((e) => e === songId)
-      myReactiveFav(favList.splice(position, 1))
+      const position = myReactiveFav().findIndex((e) => e === songId)
+      const array = myReactiveFav()
+      array.splice(position, 1)
+      myReactiveFav(array)
 
-      //myReactiveFav(newArray)
-      localStorage.setItem('favorite', JSON.stringify(favList))
+      localStorage.setItem('favorite', JSON.stringify(myReactiveFav()))
       setIsFav(-1)
     } else {
-      myReactiveFav([...favList, songId])
-      localStorage.setItem('favorite', JSON.stringify([...favList, songId]))
-      setIsFav(favList.length - 1)
+      console.log('has creado un nuevo favorito, favList valía', myReactiveFav())
+      myReactiveFav([...myReactiveFav(), songId])
+      localStorage.setItem('favorite', JSON.stringify(myReactiveFav()))
+      setIsFav(myReactiveFav().length - 1)
+      console.log('y ahora vale', myReactiveFav())
     }
-
-    return isFav
   }
 
   // handleGenre its a simple function that transforms ROCK_METAL=>rock metal
