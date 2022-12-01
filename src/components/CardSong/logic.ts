@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CacheFav, SongTypes, HandleGenre, Props } from './types'
 import myReactiveFav from '../../graphql/variables/fav'
 
-// There are 3 functions in this doc: handleCacheFav, handleFav, handleGenre
-
-// handleCacheFav:
-// search in the LocalStorage if the user already has some favorite songs. If she has, it return in the var cacheFav
-// which are those songs.If not, it initializes an array in order to save future songs in LocalStorage
+// There are 3 functions in this custom hook: handleCacheFav, handleFav, handleGenre
 
 export const useLogic = ({ song }: Props) => {
   const [isFav, setIsFav] = useState(-1)
+
+  // handleCacheFav:
+  // search in the LocalStorage if the user already has some favorite songs. If she has, it return in the var cacheFav
+  // which are those songs.If not, it initializes an array in order to save future songs in LocalStorage.
+  // Then save it in the reactive var
 
   const handleCacheFav = () => {
     let cacheFav: CacheFav = []
@@ -26,22 +27,24 @@ export const useLogic = ({ song }: Props) => {
     myReactiveFav(cacheFav)
   }
 
+  useEffect(() => {
+    handleCacheFav()
+    console.log("Too many console.log, don't you think? ¬¬")
+  }, [])
+
   // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
   function handleFav(songId: number) {
     if (isFav >= 0) {
-      const position = myReactiveFav().findIndex((e) => e === songId)
       const array = myReactiveFav()
-      array.splice(position, 1)
+      array.splice(isFav, 1)
       myReactiveFav(array)
 
       localStorage.setItem('favorite', JSON.stringify(myReactiveFav()))
       setIsFav(-1)
     } else {
-      console.log('has creado un nuevo favorito, favList valía', myReactiveFav())
       myReactiveFav([...myReactiveFav(), songId])
       localStorage.setItem('favorite', JSON.stringify(myReactiveFav()))
       setIsFav(myReactiveFav().length - 1)
-      console.log('y ahora vale', myReactiveFav())
     }
   }
 

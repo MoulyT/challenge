@@ -14,7 +14,7 @@ import Explore from './containers/Explore'
 
 import { Navbar } from './components/Navbar'
 import { Wrapper } from './components/Wrapper/styles'
-import { Reproductor } from './components/Reproductor'
+import { Player } from './components/Player'
 
 // Styles
 import { ThemeProvider } from 'styled-components'
@@ -35,7 +35,7 @@ function App() {
               <Route path='*' element={<Navigate to='/' />} />
               <Route path={PATHS.EXPLORE} element={<Explore />} />
             </Routes>
-            <Reproductor />
+            <Player />
           </Wrapper>
         </ThemeProvider>
       </BrowserRouter>

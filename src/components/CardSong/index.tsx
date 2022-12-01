@@ -33,10 +33,6 @@ export const CardSong = ({ song }: Props) => {
   const { handleFav, handleGenre, isFav, handleCacheFav } = useLogic({ song: song })
   //The initial state correspond with the info saved in localStorage 'favorite'
 
-  useEffect(() => {
-    handleCacheFav()
-  }, [])
-
   return (
     <Container>
       <Img src={song.image} />

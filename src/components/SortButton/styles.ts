@@ -11,7 +11,7 @@ export const SubTittle = styled.h2`
   color: ${({ theme }) => theme.colors.primary};
 `
 
-export const Form = styled.form`
+export const Form = styled.div`
   padding: 8px 10px;
 
   height: fit-content;
@@ -29,8 +29,6 @@ export const DropDown = styled.select`
   border: none;
   color: ${({ theme }) => theme.colors.primary};
   /* Remove the blue highlight */
-  &:focus {
-    outline: none;
-  }
+  appearance: none;
 `
 export const DropDownItem = styled.option``
