@@ -9,5 +9,8 @@ export const ButtonsContainer = styled.div`
 export const PlayerButton = styled.button`
   background-color: transparent;
   border: none;
+  cursor: pointer;
 `
 export const ImgButton = styled.img``
+
+export const Audio = styled.audio``

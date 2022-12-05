@@ -5,8 +5,9 @@ import { PATHS } from './global/constants/paths'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // Apollo
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider, useReactiveVar } from '@apollo/client'
 import { client } from './graphql/client'
+import myReactivePlayer from './graphql/variables/player'
 
 // Containers and components
 import Home from './containers/Home'
@@ -22,6 +23,8 @@ import GlobalStyle from './styles/global'
 import light from './styles/themes/light'
 
 function App() {
+  const isPlayer = useReactiveVar(myReactivePlayer)
+
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
@@ -35,7 +38,7 @@ function App() {
               <Route path='*' element={<Navigate to='/' />} />
               <Route path={PATHS.EXPLORE} element={<Explore />} />
             </Routes>
-            <Player />
+            {isPlayer ? <Player /> : null}
           </Wrapper>
         </ThemeProvider>
       </BrowserRouter>

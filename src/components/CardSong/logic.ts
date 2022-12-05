@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 import { CacheFav, SongTypes, HandleGenre, Props } from './types'
 import myReactiveFav from '../../graphql/variables/fav'
+import myReactivePlayer from '../../graphql/variables/player'
+import myReactiveCurrentSong from '../../graphql/variables/currentSong'
+import myReactiveSongs from '../../graphql/variables/songs'
 
 // There are 3 functions in this custom hook: handleCacheFav, handleFav, handleGenre
 
 export const useLogic = ({ song }: Props) => {
   const [isFav, setIsFav] = useState(-1)
-
+  const id = song.id
   // handleCacheFav:
   // search in the LocalStorage if the user already has some favorite songs. If she has, it return in the var cacheFav
   // which are those songs.If not, it initializes an array in order to save future songs in LocalStorage.
@@ -29,7 +32,6 @@ export const useLogic = ({ song }: Props) => {
 
   useEffect(() => {
     handleCacheFav()
-    console.log("Too many console.log, don't you think? ¬¬")
   }, [])
 
   // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
@@ -62,11 +64,28 @@ export const useLogic = ({ song }: Props) => {
     return genreProcessed
   }
 
+  // using the id it retrieves the position in the reproduction qeu
+  const idToPosition = (id: number) => {
+    let position
+    for (let i = 0; i < myReactiveSongs().length; i++) {
+      if (myReactiveSongs()[i].id === id) position = i
+    }
+
+    return position
+  }
+
+  const handlePlayer = () => {
+    !myReactivePlayer() && myReactivePlayer(true) // This doesn't work: myReactivePlayer(!myReactivePlayer), dunno why
+
+    myReactiveCurrentSong(idToPosition(id))
+  }
+
   return {
     handleFav,
     handleGenre,
     isFav,
     setIsFav,
     handleCacheFav,
+    handlePlayer,
   }
 }

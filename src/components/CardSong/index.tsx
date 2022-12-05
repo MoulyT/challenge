@@ -1,5 +1,5 @@
 // import Components
-// =================
+
 import {
   ButtonContainer,
   Img,
@@ -15,23 +15,17 @@ import { FavButton } from '../FavButton'
 import PlayIcon from '../../assets/images/play-button.png'
 
 // import logic
-// ==================================
 
 import { useLogic } from './logic'
-//handleCacheFav search in the LocalStorage if the user already has some
-// favorite songs. If she has, it return in the var cacheFav which are those songs
-// If not, it initializes an array in order to save future songs in LocalStorage
-
-// handleGenre its a simple function that transforms ROCK_METAL=>rock metal
 
 // import types
-// ===================
+
 import { Props } from './types'
-import { useEffect } from 'react'
+
+// import reactVar
 
 export const CardSong = ({ song }: Props) => {
-  const { handleFav, handleGenre, isFav, handleCacheFav } = useLogic({ song: song })
-  //The initial state correspond with the info saved in localStorage 'favorite'
+  const { handleFav, handleGenre, isFav, handlePlayer } = useLogic({ song: song })
 
   return (
     <Container>
@@ -41,7 +35,7 @@ export const CardSong = ({ song }: Props) => {
         <Text $variant='artist'>{song.author.name}</Text>
         <Text>{song.description}</Text>
         <ButtonContainer>
-          <PlayButton>
+          <PlayButton onClick={handlePlayer}>
             <PlayImg src={PlayIcon} />
           </PlayButton>
           <Text $variant='song-duration'>5 min</Text>

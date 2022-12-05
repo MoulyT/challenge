@@ -1,14 +1,15 @@
 import { InfoContainer, Heart, AlbumImg, AlbumInfo, Text } from './styles'
 import HeartLogo from '../../assets/images/fav-icon-active.png'
+import { Props } from './types'
 
-export const PlayerInfo = () => {
+export const PlayerInfo = ({ name, author, imgURL }: Props) => {
   return (
     <InfoContainer>
       <Heart src={HeartLogo} alt='Heart filled' />
-      <AlbumImg />
+      <AlbumImg src={imgURL} alt={name} />
       <AlbumInfo>
-        <Text $variant='song-name'>Song name</Text>
-        <Text $variant='artist'>Artist</Text>
+        <Text $variant='song-name'>{name}</Text>
+        <Text $variant='artist'>{author}</Text>
       </AlbumInfo>
     </InfoContainer>
   )
