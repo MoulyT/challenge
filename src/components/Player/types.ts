@@ -5,3 +5,9 @@ export type Func = {
   nextSong: () => void
   prevSong: () => void
 }
+
+export type Seconds = number
+
+export type Time = string
+
+export type Range = number

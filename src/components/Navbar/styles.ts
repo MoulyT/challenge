@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/macro'
+import { NavLink } from 'react-router-dom'
 
 export const NavbarDiv = styled.div`
   width: 16.666vw;
@@ -36,25 +37,25 @@ export const NavbarList = styled.ul`
 
   font-size: 14px;
 `
-export const NavbarLink = styled.a`
-  color: inherit;
-  text-decoration: none;
-`
 
 export const NavbarDivLink = styled.div<{ $isActive?: boolean }>`
   padding: 12px;
   margin-bottom: 0.25rem;
 
   border-radius: 8px;
-
+`
+export const NavbarLink = styled(NavLink)`
+  color: inherit;
+  text-decoration: none;
   color: ${({ theme }) => theme.colors.navInactive};
 
-  ${({ $isActive }) =>
-    $isActive &&
-    css`
+  &[class*='active'] {
+    color: ${({ theme }) => theme.colors.primary};
+
+    ${NavbarDivLink} {
       background-color: white;
-      color: ${({ theme }) => theme.colors.primary};
-    `}
+    }
+  }
 `
 
 // En estos iconos veo mucha repetición, seguro que se puede hacer que se le pasa el icono como prop. REVISAR

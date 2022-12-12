@@ -24,7 +24,6 @@ import light from './styles/themes/light'
 
 function App() {
   const isPlayer = useReactiveVar(myReactivePlayer)
-
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
@@ -32,11 +31,12 @@ function App() {
           <GlobalStyle />
 
           <Wrapper>
-            <Navbar />
             <Routes>
-              <Route path={PATHS.HOME} element={<Home />} />
-              <Route path='*' element={<Navigate to='/' />} />
-              <Route path={PATHS.EXPLORE} element={<Explore />} />
+              <Route element={<Navbar />}>
+                <Route path={PATHS.HOME} element={<Home />} />
+                <Route path='*' element={<Navigate to='/' />} />
+                <Route path={PATHS.EXPLORE} element={<Explore />} />
+              </Route>
             </Routes>
             {isPlayer ? <Player /> : null}
           </Wrapper>

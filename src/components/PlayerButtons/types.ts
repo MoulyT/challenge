@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type SongTypes = {
   audio: { id: number; url: string }
   author: { description: string; id: number; name: string }
@@ -16,4 +18,6 @@ export type Props = {
   prev: () => void
   audioRef: React.RefObject<HTMLAudioElement>
   isPlaying: boolean
+  handleCurrentTime: () => void
+  currentTime: string
 }

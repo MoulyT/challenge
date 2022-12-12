@@ -8,4 +8,7 @@ export const Button = styled.button`
   cursor: pointer;
 `
 
-export const HeartImg = styled.img``
+export const HeartImg = styled.img`
+  opacity: 1;
+  transition: opacity 3s ease-in-out;
+`

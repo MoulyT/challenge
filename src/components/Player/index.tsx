@@ -14,25 +14,47 @@ export const Player = () => {
   const songs = useReactiveVar(myReactiveSongs)
   const currentSong = useReactiveVar(myReactiveCurrentSong)
 
-  const { handlePlay, nextSong, prevSong, audioPlayer, isPlaying } = useLogicPlayer(currentSong)
+  const {
+    handlePlay,
+    nextSong,
+    prevSong,
+    audioPlayer,
+    isPlaying,
+    durationFormatted,
+    currentTimeFormatted,
+    range,
+    handleCurrentTime,
+    handleProgressBar,
+  } = useLogicPlayer(currentSong)
 
   return (
-    <Container>
-      <PlayerInfo
-        name={songs[currentSong].name}
-        author={songs[currentSong].author.name}
-        imgURL={songs[currentSong].image}
-      />
-      <PlayerButtons
-        currentSong={currentSong}
-        audioURL={songs[currentSong].audio.url}
-        prev={prevSong}
-        play={handlePlay}
-        next={nextSong}
-        audioRef={audioPlayer}
-        isPlaying={isPlaying}
-      />
-      <PlayerOptions />
-    </Container>
+    <>
+      {songs === undefined ? null : (
+        <Container>
+          <PlayerInfo
+            name={songs[currentSong].name}
+            author={songs[currentSong].author.name}
+            imgURL={songs[currentSong].image}
+          />
+          <PlayerButtons
+            currentSong={currentSong}
+            audioURL={songs[currentSong].audio.url}
+            prev={prevSong}
+            play={handlePlay}
+            next={nextSong}
+            audioRef={audioPlayer}
+            isPlaying={isPlaying}
+            handleCurrentTime={handleCurrentTime}
+            currentTime={currentTimeFormatted}
+          />
+          <PlayerOptions
+            duration={durationFormatted}
+            currentTime={currentTimeFormatted}
+            range={range}
+            handleProgressBar={handleProgressBar}
+          />
+        </Container>
+      )}
+    </>
   )
 }

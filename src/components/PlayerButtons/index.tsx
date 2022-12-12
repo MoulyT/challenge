@@ -7,13 +7,28 @@ import PrevLogo from '../../assets/images/prev-song.png'
 
 import { Props } from './types'
 
-export const PlayerButtons = ({ audioURL, prev, next, play, audioRef, isPlaying }: Props) => {
+export const PlayerButtons = ({
+  audioURL,
+  prev,
+  next,
+  play,
+  audioRef,
+  isPlaying,
+  handleCurrentTime,
+}: Props) => {
   return (
     <ButtonsContainer>
       <PlayerButton onClick={prev}>
         <ImgButton src={PrevLogo} alt='Previous song' />
       </PlayerButton>
-      <Audio ref={audioRef} src={audioURL} preload='metadata' autoPlay={true} />
+      <Audio
+        ref={audioRef}
+        src={audioURL}
+        preload='metadata'
+        autoPlay={true}
+        onTimeUpdate={handleCurrentTime}
+        onEnded={next}
+      />
       <PlayerButton onClick={play}>
         {isPlaying ? (
           <ImgButton src={PauseLogo} alt='Pause' />
