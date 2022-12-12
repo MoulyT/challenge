@@ -8,9 +8,13 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
   const [isPlaying, setIsPlaying] = useState(true)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
+  const [speed, setSpeed] = useState(1)
 
   //Refs
   const audioPlayer = useRef<HTMLAudioElement>(null) //ref <audio/> tag
+
+  // Play, next and prev buttons
+  // ===============================================================================
 
   const handlePlay = () => {
     setIsPlaying(!isPlaying)
@@ -18,10 +22,6 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
       isPlaying ? audioPlayer.current.pause() : audioPlayer.current.play()
     }
   }
-
-  useEffect(() => {
-    setDuration(audioPlayer?.current?.duration as number)
-  }, [audioPlayer.current?.onloadedmetadata, audioPlayer.current?.readyState])
 
   const nextSong = () => {
     !isPlaying && setIsPlaying(true)
@@ -40,9 +40,19 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
       ? myReactiveCurrentSong(myReactiveSongs().length - 1)
       : myReactiveCurrentSong(myReactiveCurrentSong() - 1)
   }
+  //
+  //
+  // ================================================================================
 
-  // time has to be formatted.Example: 0->00:00, 126->02:06
+  // This effect allows to read the duration when the metadata of the song loads
+  useEffect(() => {
+    setDuration(audioPlayer?.current?.duration as number)
+  }, [audioPlayer.current?.onloadedmetadata, audioPlayer.current?.readyState])
+  //
+  //
+  // ==============================================================================
 
+  // Time has to be formatted.Example: 0->00:00, 126->02:06
   const formatTime = (secs: Seconds) => {
     const minutes = Math.floor(secs / 60)
     const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`
@@ -52,10 +62,14 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
   }
   const durationFormatted = formatTime(duration)
   const currentTimeFormatted = formatTime(currentTime)
+  //
+  //
+  //  ==============================================================================
 
   // The progress bar needs % of progress
   const range = Math.floor((currentTime * 100) / duration)
 
+  // REVISAR. no se que mierda hago aquí. setCurrenTime dos veces?? en el momento de escribir esto se lee correctamente el current time pero no se modifica moviendo el input manualmente
   const handleCurrentTime = () => {
     setCurrentTime(audioPlayer.current?.currentTime as number)
   }
@@ -64,6 +78,21 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
     const seconds = (range * duration) / (currentTime * 100)
     setCurrentTime(seconds)
   }
+  //
+  //
+  //  ==============================================================================
+
+  //
+  const handleSpeed = () => {
+    setSpeed(speed + 0.25)
+  }
+  useEffect(() => {
+    audioPlayer.current.playbackRate = speed
+    console.log(
+      '🚀 ~ file: logic.ts:91 ~ useEffect ~ audioPlayer.current.playbackRate',
+      audioPlayer.current.playbackRate,
+    )
+  }, [speed, audioPlayer.current?.readyState])
 
   return {
     handlePlay,
@@ -78,5 +107,7 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
     handleCurrentTime,
     setCurrentTime,
     handleProgressBar,
+    speed,
+    handleSpeed,
   }
 }

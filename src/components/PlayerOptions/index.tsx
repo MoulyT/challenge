@@ -4,7 +4,14 @@ import VolumeIcon from '../../assets/images/volume.png'
 
 export {}
 
-export const PlayerOptions = ({ duration, currentTime, range, handleProgressBar }: Props) => {
+export const PlayerOptions = ({
+  duration,
+  currentTime,
+  range,
+  handleProgressBar,
+  speed,
+  handleSpeed,
+}: Props) => {
   return (
     <OptionsContainer>
       <TimeText>{currentTime}</TimeText>
@@ -15,7 +22,7 @@ export const PlayerOptions = ({ duration, currentTime, range, handleProgressBar 
       />
 
       <TimeText>{duration}</TimeText>
-      <Button>1x</Button>
+      <Button onClick={handleSpeed}>{speed}x</Button>
       <Button>
         <Img src={VolumeIcon} alt='volume' />
       </Button>

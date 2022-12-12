@@ -5,4 +5,6 @@ export type Props = {
   currentTime: string
   range: number
   handleProgressBar: (range: Range) => void
+  speed: number
+  handleSpeed: () => void
 }

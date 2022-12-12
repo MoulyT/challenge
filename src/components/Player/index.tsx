@@ -25,6 +25,8 @@ export const Player = () => {
     range,
     handleCurrentTime,
     handleProgressBar,
+    speed,
+    handleSpeed,
   } = useLogicPlayer(currentSong)
 
   return (
@@ -52,6 +54,8 @@ export const Player = () => {
             currentTime={currentTimeFormatted}
             range={range}
             handleProgressBar={handleProgressBar}
+            speed={speed}
+            handleSpeed={handleSpeed}
           />
         </Container>
       )}

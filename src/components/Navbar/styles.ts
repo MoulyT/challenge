@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 
 export const NavbarDiv = styled.div`
@@ -57,8 +57,6 @@ export const NavbarLink = styled(NavLink)`
     }
   }
 `
-
-// En estos iconos veo mucha repetición, seguro que se puede hacer que se le pasa el icono como prop. REVISAR
 
 export const StyledLogo = styled.img`
   margin-bottom: -0.1875rem;
