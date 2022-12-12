@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import myReactiveSongs from '../../graphql/variables/songs'
 import myReactiveCurrentSong from '../../graphql/variables/currentSong'
 import { CurrentSong, Range, Seconds } from './types'
@@ -13,24 +13,29 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
   const audioPlayer = useRef<HTMLAudioElement>(null) //ref <audio/> tag
 
   const handlePlay = () => {
-    setDuration(audioPlayer?.current?.duration as number)
     setIsPlaying(!isPlaying)
     if (audioPlayer.current !== null) {
       isPlaying ? audioPlayer.current.pause() : audioPlayer.current.play()
     }
   }
 
-  const nextSong = () => {
+  useEffect(() => {
     setDuration(audioPlayer?.current?.duration as number)
-    !isPlaying && setIsPlaying(!isPlaying)
+  }, [audioPlayer.current?.onloadedmetadata, audioPlayer.current?.readyState])
+
+  const nextSong = () => {
+    !isPlaying && setIsPlaying(true)
+
+    // In order to loop the song list
     currentSong === myReactiveSongs().length - 1
       ? myReactiveCurrentSong(0)
       : myReactiveCurrentSong(myReactiveCurrentSong() + 1)
   }
 
   const prevSong = () => {
-    setDuration(audioPlayer?.current?.duration as number)
-    !isPlaying && setIsPlaying(!isPlaying)
+    !isPlaying && setIsPlaying(true)
+
+    // In order to loop the song list
     currentSong === 0
       ? myReactiveCurrentSong(myReactiveSongs().length - 1)
       : myReactiveCurrentSong(myReactiveCurrentSong() - 1)
@@ -47,13 +52,6 @@ export const useLogicPlayer = (currentSong: CurrentSong) => {
   }
   const durationFormatted = formatTime(duration)
   const currentTimeFormatted = formatTime(currentTime)
-
-  // const unFormatTime = (time: Time) => {
-  //   const min = parseInt(time.slice(0, 2))
-  //   const seg = parseInt(time.slice(3))
-  //   const seconds = min * 60 + seg
-  //   return seconds
-  // }
 
   // The progress bar needs % of progress
   const range = Math.floor((currentTime * 100) / duration)
