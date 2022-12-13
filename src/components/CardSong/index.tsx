@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 // import Components
 
 import {
@@ -10,6 +12,7 @@ import {
   Text,
   TextContainer,
   Genre,
+  Audio,
 } from './styles'
 import { FavButton } from '../FavButton'
 import PlayIcon from '../../assets/images/play-button.png'
@@ -22,13 +25,33 @@ import { useLogic } from './logic'
 
 import { Props } from './types'
 
-// import reactVar
-
 export const CardSong = ({ song }: Props) => {
+  const audioPlayer = useRef<HTMLAudioElement>(null)
+
   const { handleFav, handleGenre, isFav, handlePlayer } = useLogic({ song: song })
+
+  const [duration, setDuration] = useState(0)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState('')
+
+  useEffect(() => {
+    setLoading('Loading')
+    try {
+      let response = audioPlayer.current?.duration
+      while (isNaN(response)) {
+        response = 0
+        setDuration(response)
+      }
+      setDuration(response)
+      setLoading('Loaded')
+    } catch (e) {
+      setError(e)
+    }
+  }, [audioPlayer.current?.duration, duration, audioPlayer.current])
 
   return (
     <Container>
+      <Audio ref={audioPlayer} src={song.audio.url} preload='metadata' />
       <Img src={song.image} />
       <TextContainer>
         <SongTittle>{song.name}</SongTittle>
@@ -38,7 +61,7 @@ export const CardSong = ({ song }: Props) => {
           <PlayButton onClick={handlePlayer}>
             <PlayImg src={PlayIcon} />
           </PlayButton>
-          <Text $variant='song-duration'>5 min</Text>
+          <Text $variant='song-duration'>{duration}</Text>
           <Genre>{handleGenre(song.genre)}</Genre>
         </ButtonContainer>
       </TextContainer>

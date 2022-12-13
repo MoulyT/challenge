@@ -1,4 +1,4 @@
-import { ProgressBar, OptionsContainer, TimeText, Button, Img } from './styles'
+import { ProgressBar, OptionsContainer, TimeText, Button, Img, VolumeInput } from './styles'
 import { Props } from './types'
 import VolumeIcon from '../../assets/images/volume.png'
 
@@ -11,6 +11,10 @@ export const PlayerOptions = ({
   handleProgressBar,
   speed,
   handleSpeed,
+  isHovered,
+  handleHover,
+  handleVolume,
+  defaultValue,
 }: Props) => {
   return (
     <OptionsContainer>
@@ -23,8 +27,16 @@ export const PlayerOptions = ({
 
       <TimeText>{duration}</TimeText>
       <Button onClick={handleSpeed}>{speed}x</Button>
-      <Button>
+
+      <Button onMouseEnter={handleHover} onMouseLeave={handleHover}>
         <Img src={VolumeIcon} alt='volume' />
+        {isHovered && (
+          <VolumeInput
+            type='range'
+            onChange={(e) => handleVolume(e.target.valueAsNumber)}
+            defaultValue={defaultValue}
+          />
+        )}
       </Button>
     </OptionsContainer>
   )

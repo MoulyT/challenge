@@ -74,3 +74,4 @@ export const Genre = styled.span`
 
   font-size: 0.75rem;
 `
+export const Audio = styled.audio``

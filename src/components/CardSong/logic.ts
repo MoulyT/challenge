@@ -8,13 +8,17 @@ import myReactiveSongs from '../../graphql/variables/songs'
 // There are 3 functions in this custom hook: handleCacheFav, handleFav, handleGenre
 
 export const useLogic = ({ song }: Props) => {
+  // states.
+  // isFav=-1-->is not a fav song. isFav=3--> is a fav song, and position in the localStorage is 3
   const [isFav, setIsFav] = useState(-1)
+  // Fetch duration of the song
+
   const id = song.id
+
   // handleCacheFav:
   // search in the LocalStorage if the user already has some favorite songs. If she has, it return in the var cacheFav
   // which are those songs.If not, it initializes an array in order to save future songs in LocalStorage.
   // Then save it in the reactive var
-
   const handleCacheFav = () => {
     let cacheFav: CacheFav = []
 
@@ -33,6 +37,9 @@ export const useLogic = ({ song }: Props) => {
   useEffect(() => {
     handleCacheFav()
   }, [])
+  //
+  //
+  // =================================================================================================
 
   // If you push the fav button you set isFav to !isFav and push/remove the song from local Storage
   function handleFav(songId: number) {
@@ -49,6 +56,9 @@ export const useLogic = ({ song }: Props) => {
       setIsFav(myReactiveFav().length - 1)
     }
   }
+  //
+  //
+  // =================================================================================================
 
   // handleGenre its a simple function that transforms ROCK_METAL=>rock metal
   const handleGenre: HandleGenre = (genre: SongTypes['genre']) => {
@@ -63,6 +73,9 @@ export const useLogic = ({ song }: Props) => {
 
     return genreProcessed
   }
+  //
+  //
+  // =================================================================================================
 
   // using the id it retrieves the position in the reproduction qeu
   const idToPosition = (id: number) => {
@@ -73,7 +86,11 @@ export const useLogic = ({ song }: Props) => {
 
     return position
   }
+  //
+  //
+  // =================================================================================================
 
+  // hide or show the player
   const handlePlayer = () => {
     !myReactivePlayer() && myReactivePlayer(true) // This doesn't work: myReactivePlayer(!myReactivePlayer), dunno why
 

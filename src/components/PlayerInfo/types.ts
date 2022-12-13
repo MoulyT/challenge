@@ -4,4 +4,6 @@ export type Props = {
   name: string
   author: string
   imgURL: string
+
+  fav: boolean
 }

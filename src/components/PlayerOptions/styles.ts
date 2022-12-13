@@ -29,3 +29,7 @@ export const Button = styled.button`
   cursor: pointer;
 `
 export const Img = styled.img``
+export const VolumeInput = styled.input`
+  width: 40px;
+  -webkit-appearance: slider-vertical;
+`

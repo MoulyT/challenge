@@ -15,7 +15,6 @@ import {
 } from './styles'
 import { Separator } from '../Separator/index'
 import { PATHS } from '../../global/constants/paths'
-import { activeLink } from './logic'
 import { Outlet } from 'react-router-dom'
 
 export const Navbar = () => {
@@ -33,20 +32,17 @@ export const Navbar = () => {
         <NavbarList>
           <li>
             <NavbarLink to={PATHS.HOME}>
-              <NavbarDivLink $isActive={activeLink(PATHS.HOME)}>
+              <NavbarDivLink>
                 <StyledLogo src={IconHome} alt='Home' />
-                Home {activeLink(PATHS.HOME)}
+                Home
               </NavbarDivLink>
             </NavbarLink>
           </li>
           <li>
-            <NavbarLink
-              to={PATHS.EXPLORE}
-              style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}
-            >
-              <NavbarDivLink $isActive={activeLink(PATHS.EXPLORE)}>
+            <NavbarLink to={PATHS.EXPLORE}>
+              <NavbarDivLink>
                 <StyledLogo src={IconExplore} alt='Explore' />
-                Explore{activeLink(PATHS.HOME)}
+                Explore
               </NavbarDivLink>
             </NavbarLink>
           </li>

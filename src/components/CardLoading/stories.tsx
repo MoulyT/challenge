@@ -4,7 +4,7 @@ import { CardLoading } from '.'
 export default {
   component: CardLoading,
   title: 'Component/CardLoading',
-}
+} as Meta
 
 const Template: Story = () => <CardLoading />
 

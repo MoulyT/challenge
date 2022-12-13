@@ -42,10 +42,6 @@ export default function Explore() {
   })
 
   myReactiveSongs(data?.songs.songs) //Maybe i should do this in App. Maybe in an useEffect
-  console.log(
-    '🚀 ~ file: index.tsx:59 ~ Explore ~ myReactiveSongs(data?.songs.songs)',
-    myReactiveSongs(data?.songs.songs),
-  )
 
   if (error) return <pre>{error.message}</pre> // Se puede mejorar el cómo se muestra el error
   typeof debouncedFilter

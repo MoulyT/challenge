@@ -27,6 +27,11 @@ export const Player = () => {
     handleProgressBar,
     speed,
     handleSpeed,
+    isHovered,
+    handleHover,
+    handleVolume,
+    volume,
+    isFav,
   } = useLogicPlayer(currentSong)
 
   return (
@@ -37,6 +42,7 @@ export const Player = () => {
             name={songs[currentSong].name}
             author={songs[currentSong].author.name}
             imgURL={songs[currentSong].image}
+            fav={isFav(songs[currentSong].id)}
           />
           <PlayerButtons
             currentSong={currentSong}
@@ -56,6 +62,10 @@ export const Player = () => {
             handleProgressBar={handleProgressBar}
             speed={speed}
             handleSpeed={handleSpeed}
+            isHovered={isHovered}
+            handleHover={handleHover}
+            handleVolume={handleVolume}
+            defaultValue={volume}
           />
         </Container>
       )}
